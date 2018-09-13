@@ -1,18 +1,20 @@
+// resources/views/tickets/index.blade.php
+
 @extends('layouts.app')
 
-@section('title', 'My Tickets')
+@section('title', 'All Tickets')
 
 @section('content')
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <i class="fa fa-ticket"> My Tickets</i>
+                    <i class="fa fa-ticket"> Tickets</i>
                 </div>
 
                 <div class="panel-body">
                     @if ($tickets->isEmpty())
-                        <p>You have not created any tickets.</p>
+                        <p>There are currently no tickets.</p>
                     @else
                         <table class="table">
                             <thead>
@@ -21,6 +23,7 @@
                                     <th>Title</th>
                                     <th>Status</th>
                                     <th>Last Updated</th>
+                                    <th style="text-align:center" colspan="2">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -46,12 +49,21 @@
                                     @endif
                                     </td>
                                     <td>{{ $ticket->updated_at }}</td>
+                                    <td>
+                                        <a href="{{ url('tickets/' . $ticket->ticket_id) }}" class="btn btn-primary">Comment</a>
+                                    </td>
+                                    <td>
+                                        <form action="{{ url('admin/close_ticket/' . $ticket->ticket_id) }}" method="POST">
+                                            {!! csrf_field() !!}
+                                            <button type="submit" class="btn btn-danger">Close</button>
+                                        </form>
+                                    </td>
                                 </tr>
                             @endforeach
                             </tbody>
                         </table>
 
-                        {{-- {{ $tickets->render() }} --}}
+                        {{ $tickets->render() }}
                     @endif
                 </div>
             </div>

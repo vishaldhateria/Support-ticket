@@ -24,3 +24,11 @@ Route::post('new_ticket', 'TicketController@store'); //store the form
 
 Route::get('my_tickets', 'TicketController@userTickets');
 
+Route::get('tickets/{ticket_id}', 'TicketController@show');
+Route::post('comment', 'CommentsController@postComment');
+
+//https://laravel.com/docs/5.7/routing
+Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
+    Route::get('tickets', 'TicketController@index');
+    Route::post('close_ticket/{ticket_id}', 'TicketController@close');
+});

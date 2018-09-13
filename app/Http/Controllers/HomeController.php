@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Mailers\AppMailer;
 
 use Illuminate\Http\Request;
 
